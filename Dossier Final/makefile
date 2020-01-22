@@ -28,7 +28,7 @@ ImageRGB.o: ImageRGB.cpp ImageRGB.h Image.o
 	$(CC) ImageRGB.cpp -c
 
 ImageB.o: ImageB.cpp ImageB.h Image.o 
-	echo Creation de ImageB.O ...
+	echo Creation de ImageB.o ...
 	$(CC) ImageB.cpp -c
 
 Image.o: Image.cpp Image.h

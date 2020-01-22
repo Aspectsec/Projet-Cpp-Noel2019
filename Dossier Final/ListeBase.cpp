@@ -69,15 +69,9 @@ void ListeBase<T>::Affiche() const
 	
 	while(pTemp != NULL)
 	{
-		if(pTemp->suiv)
-			cout << pTemp->valeur << ", ";
+		cout << pTemp->valeur << endl;
 		
-		if(!pTemp->suiv)
-			cout << pTemp->valeur;
-			
 		pTemp = pTemp->suiv;
-		
-		cout << endl;
 	}
 }
 

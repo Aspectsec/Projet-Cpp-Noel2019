@@ -10,21 +10,13 @@ void Liste<T>::insere(const T& val)
 		this->pTete = new Cellule<T>;
 		this->pTete->valeur = val;
 		this->pTete->suiv = NULL;
-		
 		return;
 	}
 	
-	Cellule<T> *pTemp = this->pTete;
-	
-	while(pTemp->suiv)
-	{
-		pTemp = pTemp->suiv;
-	}
-	
-	pTemp->suiv = new Cellule<T>;
-	pTemp = pTemp->suiv;
-	pTemp->valeur = val;
-	pTemp->suiv = NULL;
+	Cellule<T>* pNew = new Cellule<T>;
+	pNew->valeur = val;
+	pNew->suiv = this->pTete;
+	this->pTete = pNew; 
 }
 
 template class Liste<int>;

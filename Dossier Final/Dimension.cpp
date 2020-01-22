@@ -44,8 +44,8 @@ void Dimension::Save(ofstream &fichier) const
 		return;
 	}
 	
-	fichier.write((char*)&largeur, sizeof(Dimension));
-	fichier.write((char*)&hauteur, sizeof(Dimension));
+	fichier.write((char*)&largeur, sizeof(int));
+	fichier.write((char*)&hauteur, sizeof(int));
 }
 
 void Dimension::Load(ifstream &fichier)
@@ -56,8 +56,8 @@ void Dimension::Load(ifstream &fichier)
 		return;
 	}
 	
-	fichier.read((char*)&largeur, sizeof(Dimension));
-	fichier.read((char*)&hauteur, sizeof(Dimension));
+	fichier.read((char*)&largeur, sizeof(int));
+	fichier.read((char*)&hauteur, sizeof(int));
 }
 
 int Dimension::getHauteur() const {return hauteur;} 

@@ -19,13 +19,14 @@ ImageNG::ImageNG()
 	nom = NULL;
 	matrice = NULL;
 	setNom("default");
-	setDimension(dim);
+	setDimension(Dimension::VGA);
 	setId(0);
 }
 
 ImageNG::ImageNG(int val, const char* name) : Image(val, name)
 {
 	matrice = NULL;
+	setDimension(Dimension::VGA);
 }
 
 ImageNG::ImageNG(const ImageNG& image)
@@ -34,6 +35,7 @@ ImageNG::ImageNG(const ImageNG& image)
 	matrice = NULL;
 	setDimension(image.dim);
 	setNom(image.getNom());
+	setId(image.getId());
 	
 	for(int x = 0; x < dim.getLargeur(); x++)
 		for(int y = 0; y < dim.getHauteur(); y++)
@@ -53,10 +55,10 @@ ImageNG::ImageNG(const char* path)
 {
 	nom = NULL;
 	matrice = NULL;
-	setDimension(dim);
-	setNom("default");
+	setDimension(Dimension::VGA);
+	setNom(path);
 	setId(0);
-
+	
 	importFromBMP(path);
 }
 
@@ -82,7 +84,6 @@ void ImageNG::Save(ofstream &fichier) const
 		for(int y = 0; y < dim.getHauteur(); y++)
 		{
 			val = matrice[x][y];
-			
 			fichier.write((char*)&val, sizeof(int));
 		}
 }
@@ -103,7 +104,6 @@ void ImageNG::Load(ifstream &fichier)
 		for(int y = 0; y < dim.getHauteur(); y++)
 		{
 			fichier.read((char*)&val, sizeof(int));
-			
 			matrice[x][y] = val;
 		}
 }
@@ -161,11 +161,10 @@ ImageNG& ImageNG::operator=(const ImageNG& cpy)
 	setNom(cpy.getNom());
 	setId(cpy.getId());
 	setDimension(cpy.dim);
-	
-	for(int x = 0; x < dim.getLargeur(); x++)
-		for(int y = 0; y < dim.getHauteur(); y++)
+	for(int x = 0; x < cpy.getLargeur(); x++)
+		for(int y = 0; y < cpy.getHauteur(); y++)
 			matrice[x][y] = cpy.matrice[x][y];
-	
+			
 	return (*this);
 }
 
@@ -261,10 +260,13 @@ bool operator<(const ImageNG& i1, const ImageNG& i2) throw (XYException)
 {
 	ImageNG temp(i1);
 	
-	if(i1.dim.getLargeur() != i2.dim.getLargeur() || i1.dim.getHauteur() != i2.dim.getHauteur()) throw XYException("Largeur et Hauteur des deux images est diffente !", 'd');
+	if(ImageNG::getComparaison() == 1)
+	{
+		if(i1.dim.getLargeur() != i2.dim.getLargeur() || i1.dim.getHauteur() != i2.dim.getHauteur()) throw XYException("Largeur et Hauteur des deux images est diffente !", 'd');
 	
-	if(i1.dim.getLargeur() != i2.dim.getLargeur()) throw XYException("Largeur des deux images est diffente !", 'x');
-	if(i1.dim.getHauteur() != i2.dim.getHauteur()) throw XYException("Hauteur des deux images est diffente !", 'y');
+		if(i1.dim.getLargeur() != i2.dim.getLargeur()) throw XYException("Largeur des deux images est diffente !", 'x');
+		if(i1.dim.getHauteur() != i2.dim.getHauteur()) throw XYException("Hauteur des deux images est diffente !", 'y');
+	}
 	
 	if(ImageNG::getComparaison() == 0)
 		return temp.compLum(i2) == -1;
@@ -276,10 +278,13 @@ bool operator>(const ImageNG& i1, const ImageNG& i2) throw (XYException)
 {
 	ImageNG temp(i1);
 	
-	if(i1.dim.getLargeur() != i2.dim.getLargeur() || i1.dim.getHauteur() != i2.dim.getHauteur()) throw XYException("Largeur et Hauteur des deux images est diffente !", 'd');
+	if(ImageNG::getComparaison() == 1)
+	{
+		if(i1.dim.getLargeur() != i2.dim.getLargeur() || i1.dim.getHauteur() != i2.dim.getHauteur()) throw XYException("Largeur et Hauteur des deux images est diffente !", 'd');
 	
-	if(i1.dim.getLargeur() != i2.dim.getLargeur()) throw XYException("Largeur des deux images est diffente !", 'x');
-	if(i1.dim.getHauteur() != i2.dim.getHauteur()) throw XYException("Hauteur des deux images est diffente !", 'y');
+		if(i1.dim.getLargeur() != i2.dim.getLargeur()) throw XYException("Largeur des deux images est diffente !", 'x');
+		if(i1.dim.getHauteur() != i2.dim.getHauteur()) throw XYException("Hauteur des deux images est diffente !", 'y');
+	}
 	
 	if(ImageNG::getComparaison() == 0)
 		return temp.compLum(i2) == 1;
@@ -289,10 +294,13 @@ bool operator>(const ImageNG& i1, const ImageNG& i2) throw (XYException)
 
 bool ImageNG::operator==(const ImageNG& i) throw (XYException)
 {
-	if(dim.getLargeur() != i.dim.getLargeur() || dim.getHauteur() != i.dim.getHauteur()) throw XYException("Largeur et Hauteur des deux images est diffente !", 'd');
+	if(ImageNG::getComparaison() == 1)
+	{
+		if(dim.getLargeur() != i.dim.getLargeur() || dim.getHauteur() != i.dim.getHauteur()) throw XYException("Largeur et Hauteur des deux images est diffente !", 'd');
 	
-	if(dim.getLargeur() != i.dim.getLargeur()) throw XYException("Largeur des deux images est diffente !", 'x');
-	if(dim.getHauteur() != i.dim.getHauteur()) throw XYException("Hauteur des deux images est diffente !", 'y');
+		if(dim.getLargeur() != i.dim.getLargeur()) throw XYException("Largeur des deux images est diffente !", 'x');
+		if(dim.getHauteur() != i.dim.getHauteur()) throw XYException("Hauteur des deux images est diffente !", 'y');
+	}
 	
 	if(ImageNG::getComparaison() == 0)
 		return compLum(i) == 0;
@@ -302,7 +310,7 @@ bool ImageNG::operator==(const ImageNG& i) throw (XYException)
 
 ostream& operator<<(ostream& s, const ImageNG& cpy)
 {
-	s << endl << "ID : " << cpy.id << endl << "Nom : " << cpy.getNom() << endl << "Dimension : "<< cpy.dim.getLargeur() << "x" << cpy.dim.getHauteur() << endl << "Luminance : " << cpy.getLuminance() << endl << "Contraste : " << cpy.getContraste();
+	s << "[]ImageNG " << cpy.getNom() << " : " << "ID=" << cpy.getId() << " " << cpy.getLargeur() << "x" << cpy.getHauteur() << " luminance=" << cpy.getLuminance() << " contraste=" << cpy.getContraste() << endl;
 	
 	return s;
 }
@@ -382,9 +390,10 @@ void ImageNG::setDimension(const Dimension& d)
 			temp[x][y] = 0;
 	
 	if(matrice)
-		for(int x = 0; x < dim.getLargeur(); x++)
-			for(int y = 0; y < dim.getHauteur(); y++)
-				if(x < d.getLargeur() && y < d.getHauteur()) temp[x][y] = matrice[x][y];
+		for(int x = 0; x < d.getLargeur(); x++)
+			for(int y = 0; y < d.getHauteur(); y++)
+				if(x < dim.getLargeur() && y < dim.getHauteur())
+					temp[x][y] = matrice[x][y];
 	
 	if(matrice) FreeMatrix();
 	
@@ -394,16 +403,16 @@ void ImageNG::setDimension(const Dimension& d)
 	matrice = temp;
 }
 
-void ImageNG::setPixel(int x, int y, int val) throw (RGBException, XYException)
+void ImageNG::setPixel(int x, int y, int val) throw (XYException)
 {
-	if(val > 255) throw RGBException("Valeur trop grande !", val);
-	if(val < 0) throw RGBException("Valeur trop petite !", val);
-	
 	if((x < 0 || x > dim.getLargeur()) && (y < 0 || y > dim.getHauteur())) throw XYException("X et Y en dehors de l'image !", 'd');
 	if(x < 0 || x > dim.getLargeur()) throw XYException("X en dehors de l'image !", 'x');
 	if(y < 0 || y > dim.getHauteur()) throw XYException("Y en dehors de l'image !", 'y');
 	
-	matrice[x][y] = val;
+	
+	if(val >= 0 || val <= 255) matrice[x][y] = val;
+	if(val > 255) matrice[x][y] = 255;
+	if(val < 0) matrice[x][y] = 0;
 }
 
 int ImageNG::getPixel(int x, int y) throw (XYException)
@@ -448,9 +457,10 @@ int ImageNG::getMinimum() const
 	return min;
 }
 
-void ImageNG::setBackground(int val) throw (RGBException)
+void ImageNG::setBackground(int val)
 {
-	if(val < 0 || val > 255) throw RGBException("Valeur incorecte !", val);
+	if(val < 0) val = 0;
+	if(val > 255) val = 255;
 	
 	for(int x = 0; x < dim.getLargeur(); x++) 
 	{
@@ -470,7 +480,7 @@ float ImageNG::getContraste() const
 
 void ImageNG::Affiche() const
 {
-	cout << "[]ImageNG" << getNom() << " : " << "ID=" << getId() << dim.getLargeur() << "x" << dim.getHauteur() << "luminance=" << this->getLuminance() << "contraste=" << this->getContraste() << endl;
+	cout << "[]ImageNG " << getNom() << " : " << "ID=" << getId() << " " << dim.getLargeur() << "x" << dim.getHauteur() << " luminance=" << this->getLuminance() << " contraste=" << this->getContraste() << endl;
 }
 
 void ImageNG::Dessine()
@@ -495,9 +505,9 @@ void ImageNG::Dessine(const int x, const int y)
 {
 	WindowSDLimage temp(dim.getLargeur(), dim.getHauteur());
 	
-	for(int x = 0; x < temp.getWidth(); x++)
-		for(int y = 0; y < temp.getHeight(); y++)
-			temp.setPixel(x, y, matrice[x][y], matrice[x][y], matrice[x][y]);
+	for(int i = 0; i < temp.getWidth(); i++)
+		for(int j = 0; j < temp.getHeight(); j++)
+			temp.setPixel(i, j, matrice[i][j], matrice[i][j], matrice[i][j]);
 	
 	WindowSDL::drawImage(temp, x, y);
 }
@@ -508,7 +518,7 @@ int** ImageNG::AllocMatrix(int Largeur, int Hauteur)
 	
 	for(int x = 0; x < Largeur; x++)
 		temp[x] = new int[Hauteur];
-		
+	
 	return temp;
 }
 
@@ -528,8 +538,8 @@ void ImageNG::importFromBMP(const char* name)
 	Dimension d(temp.getWidth(),temp.getHeight());
 	setDimension(d);
 	
-	for(int x = 0; x < temp.getWidth(); x++)
-		for(int y = 0; y < temp.getHeight(); y++)
+	for(int x = 0; x < d.getLargeur(); x++)
+		for(int y = 0; y < d.getHauteur(); y++)
 		{
 			temp.getPixel(x, y, &r, &g, &b);
 			setPixel(x, y, ((r + g + b) / 3));

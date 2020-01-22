@@ -10,6 +10,7 @@ class BaseException
 		~BaseException();
 		
 		void setErreur(const char* erreur);
+		const char* getErreur();
 };
 
 #endif

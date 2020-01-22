@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "Image.h"
+#include "ImageNG.h"
 #include "Couleur.h"
 #include "PixelRGB.h"
 
@@ -19,6 +20,12 @@ class ImageRGB : public Image
 		ImageRGB(const ImageRGB& cpy);
 		ImageRGB(const int nid, const char* nom, const Dimension& dcpy);
 		~ImageRGB();
+		
+		ImageNG getRouge() const;
+		ImageNG getVert() const;
+		ImageNG getBleu() const;
+		
+		void setRGB(const ImageNG& r, const ImageNG& g, const ImageNG& b);
 		
 		void Save(std::ofstream &fichier) const;
 		void Load(std::ifstream &fichier);

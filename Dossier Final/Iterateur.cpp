@@ -15,10 +15,7 @@ Iterateur<T>::~Iterateur()
 template <class T>
 bool Iterateur<T>::end() const
 {
-	if(pData->suiv)
-		return false;
-	
-	return true;
+	return pData == 0;
 }
 
 template <class T>

@@ -32,9 +32,9 @@ class Couleur
 		int getVert() const;
 		int getBleu() const;
 		
-		void setRouge(const int r) throw (RGBException);
-		void setVert(const int g) throw (RGBException);
-		void setBleu(const int b) throw (RGBException);
+		void setRouge(const int r);
+		void setVert(const int g);
+		void setBleu(const int b);
 		
 		void Affiche() const;
 		

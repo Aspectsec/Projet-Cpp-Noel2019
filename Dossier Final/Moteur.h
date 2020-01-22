@@ -1,6 +1,8 @@
 #ifndef _MOTEURH_
 #define _MOTEURH_
 
+#include <fstream>
+
 #include "WindowSDLimage.h"
 #include "WindowSDL.h"
 
@@ -22,13 +24,24 @@ class Moteur
 		Liste<ImageRGB>		ImagesRGB;
 		Liste<ImageB>			ImagesB;
 		
+		ofstream fichierLog;
+		
 		int Insere(Image *pImage);
+		int getLastID();
+		
+		int getImageType(Image* src);																	//1->B	2->NG		3->RGB
+		
 		ImageNG getImageNG(const int id) throw (MoteurException);
 		Image* getImage(const int id) throw (MoteurException);
 		
 	public:
 		Moteur();
 		~Moteur();
+		
+		void log(const char* str);
+		
+		void SaveState(ofstream& fImages);
+		void LoadState(ifstream& fImages);
 		
 		void Affiche();
 		void SupprimeImage(const int id) throw (MoteurException);
@@ -38,6 +51,9 @@ class Moteur
 		
 		void ExporterBMP(const int id, const char* fichier) throw (MoteurException);
 		
+		void ImportCSV(const char* fichier);
+		
+		int ImporteImageB(const char* fichier);
 		int ImporteImageNG(const char* fichier);
 		int ImporteImageRGB(const char* fichier);
 		

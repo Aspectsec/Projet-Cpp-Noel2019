@@ -49,11 +49,11 @@ void Image::Save(ofstream &fichier) const
 		return;
 	}
 	
-	int len = strlen(nom);
+	int len = strlen(nom) + 1;
 	
 	fichier.write((char*)&id, sizeof(int));
 	fichier.write((char*)&len, sizeof(int));
-	fichier.write((char*)nom, len);
+	fichier.write(nom, len);
 	dim.Save(fichier);
 }
 
@@ -66,10 +66,12 @@ void Image::Load(ifstream &fichier)
 	}
 	
 	int len;
+	char yeet[30];
 	
 	fichier.read((char*)&id, sizeof(int));
 	fichier.read((char*)&len, sizeof(int));
-	fichier.read((char*)nom, len);
+	fichier.read(&yeet[0], len);
+	setNom(yeet);
 	dim.Load(fichier);
 }
 
@@ -79,9 +81,9 @@ int Image::getId() const { return id; }
 char* Image::getNom() const { return nom; }
 void Image::setNom(const char* str)
 {
-	if(nom) delete nom;
+	if(nom) delete[] nom;
 	nom = new char[strlen(str) + 1];
-	if(str) strcpy(nom, str);
+	if(nom) strcpy(nom, str);
 }
 
 void Image::setDimension(const Dimension& d)

@@ -12,7 +12,7 @@ ImageB::ImageB()
 	nom = NULL;
 	matrice = NULL;
 	setId(1);
-	setDimension(dim);
+	setDimension(Dimension::VGA);
 	setNom("Default");
 }
 
@@ -52,7 +52,7 @@ ImageB::ImageB(const char* path)
 	nom = NULL;
 	matrice = NULL;
 	setDimension(dim);
-	setNom("default");
+	setNom(path);
 	setId(1);
 
 	importFromBMP(path);
@@ -72,7 +72,16 @@ void ImageB::Save(ofstream &fichier) const
 		return;
 	}
 	
-	fichier.write((char*)this, sizeof(ImageB));
+	Image::Save(fichier);
+	
+	int val;
+	
+	for(int x = 0; x < dim.getLargeur(); x++)
+		for(int y = 0; y < dim.getHauteur(); y++)
+		{
+			val = matrice[x][y];
+			fichier.write((char*)&val, sizeof(bool));
+		}
 }
 
 void ImageB::Load(ifstream &fichier)
@@ -83,7 +92,16 @@ void ImageB::Load(ifstream &fichier)
 		return;
 	}
 	
-	fichier.read((char*)this, sizeof(ImageB));
+	Image::Load(fichier);
+	
+	bool val;
+	
+	for(int x = 0; x < dim.getLargeur(); x++)
+		for(int y = 0; y < dim.getHauteur(); y++)
+		{
+			fichier.read((char*)&val, sizeof(bool));
+			matrice[x][y] = val;
+		}
 }
 
 void ImageB::setPixel(const int x, const int y, const bool val) throw (XYException)
@@ -167,6 +185,7 @@ void ImageB::importFromBMP(const char* name)
 	
 	Dimension d(temp.getWidth(),temp.getHeight());
 	setDimension(d);
+	setNom(name);
 	
 	for(int x = 0; x < temp.getWidth(); x++)
 		for(int y = 0; y < temp.getHeight(); y++)
@@ -268,7 +287,7 @@ ImageB operator+(const PixelB& pix, const ImageB& cpy)
 
 ostream& operator<<(ostream& s, const ImageB& cpy)
 {
-	s << endl << "ID : " << cpy.getId() << endl << "Nom : " << cpy.getNom() << endl << "Dimension : "<< cpy.dim.getLargeur() << "x" << cpy.dim.getHauteur() << endl;
+	s << "[]ImageB " << cpy.getNom() << " : " << "ID=" << cpy.getId() << " " << cpy.getLargeur() << "x" << cpy.getHauteur() << endl;
 	
 	return s;
 }

@@ -1,0 +1,114 @@
+ImagesNG(1) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(2) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(3) ../images/joconde.bmp inseree
+../images/joconde.bmp Importee du fichier CSV
+ImagesNG(4) ../images/house.bmp inseree
+../images/house.bmp Importee du fichier CSV
+ImagesRGB(5) ../images/bulles.bmp inseree
+../images/bulles.bmp Importee du fichier CSV
+ImagesRGB(6) ../images/mandrill.bmp inseree
+../images/mandrill.bmp Importee du fichier CSV
+ImagesNG(7) ../images/boat.bmp inseree
+../images/boat.bmp Importee du fichier CSV
+ImagesNG(1) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(2) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(3) ../images/joconde.bmp inseree
+../images/joconde.bmp Importee du fichier CSV
+ImagesNG(4) ../images/house.bmp inseree
+../images/house.bmp Importee du fichier CSV
+ImagesRGB(5) ../images/bulles.bmp inseree
+../images/bulles.bmp Importee du fichier CSV
+ImagesRGB(6) ../images/mandrill.bmp inseree
+../images/mandrill.bmp Importee du fichier CSV
+ImagesNG(7) ../images/boat.bmp inseree
+../images/boat.bmp Importee du fichier CSV
+Filtre Moyenneur(Selection) de 9 applique sur l'Image 3
+ImagesRGB(8) ../images/joconde.bmp(MoyenneurSelection(9)) inseree
+Image 8 exporte vers yeet.bmp
+ImagesNG(1) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(2) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(3) ../images/joconde.bmp inseree
+../images/joconde.bmp Importee du fichier CSV
+ImagesNG(4) ../images/house.bmp inseree
+../images/house.bmp Importee du fichier CSV
+ImagesRGB(5) ../images/bulles.bmp inseree
+../images/bulles.bmp Importee du fichier CSV
+ImagesRGB(6) ../images/mandrill.bmp inseree
+../images/mandrill.bmp Importee du fichier CSV
+ImagesNG(7) ../images/boat.bmp inseree
+../images/boat.bmp Importee du fichier CSV
+Filtre Median de 13 applique sur l'Image 3
+ImagesRGB(8) ../images/joconde.bmp(Median(13)) inseree
+ImagesNG(1) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(2) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(3) ../images/joconde.bmp inseree
+../images/joconde.bmp Importee du fichier CSV
+ImagesNG(4) ../images/house.bmp inseree
+../images/house.bmp Importee du fichier CSV
+ImagesRGB(5) ../images/bulles.bmp inseree
+../images/bulles.bmp Importee du fichier CSV
+ImagesRGB(6) ../images/mandrill.bmp inseree
+../images/mandrill.bmp Importee du fichier CSV
+ImagesNG(7) ../images/boat.bmp inseree
+../images/boat.bmp Importee du fichier CSV
+Image 2 et Image 3 soustraites
+ImagesRGB(8) ../images/lena.bmp(Soustraire(2, 3)) inseree
+ImagesNG(1) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(2) ../images/lena.bmp inseree
+../images/lena.bmp Importee du fichier CSV
+ImagesRGB(3) ../images/joconde.bmp inseree
+../images/joconde.bmp Importee du fichier CSV
+ImagesNG(4) ../images/house.bmp inseree
+../images/house.bmp Importee du fichier CSV
+ImagesRGB(5) ../images/bulles.bmp inseree
+../images/bulles.bmp Importee du fichier CSV
+ImagesRGB(6) ../images/mandrill.bmp inseree
+../images/mandrill.bmp Importee du fichier CSV
+ImagesNG(7) ../images/boat.bmp inseree
+../images/boat.bmp Importee du fichier CSV
+Dilatation de 7 applique sur l'Image 2
+ImagesRGB(8) ../images/lena.bmp(Dilatation(2) de 7) inseree
+Images exportees vers Sauvegarde.dat
+ImagesNG(1) ../images/lena.bmp inseree
+ImagesNG(2) ../images/boat.bmp inseree
+ImagesNG(3) ../images/house.bmp inseree
+ImagesRGB(4) ../images/lena.bmp(Dilatation(2) de 7) inseree
+ImagesRGB(5) ../images/mandrill.bmp inseree
+ImagesRGB(6) ../images/bulles.bmp inseree
+ImagesRGB(7) ../images/joconde.bmp inseree
+ImagesRGB(8) ../images/lena.bmp inseree
+Sauvegarde.dat charge
+ImagesNG(1) ../images/lena.bmp inseree
+ImagesNG(2) ../images/boat.bmp inseree
+ImagesNG(3) ../images/house.bmp inseree
+ImagesRGB(4) ../images/lena.bmp(Dilatation(2) de 7) inseree
+ImagesRGB(5) ../images/mandrill.bmp inseree
+ImagesRGB(6) ../images/bulles.bmp inseree
+ImagesRGB(7) ../images/joconde.bmp inseree
+ImagesRGB(8) ../images/lena.bmp inseree
+Sauvegarde.dat charge
+Image 7 seuillee de 150
+ImagesB(9) ../images/joconde.bmp(Seuillage(150)) inseree
+Image 8 seuillee de 30
+ImagesB(10) ../images/lena.bmp(Seuillage(30)) inseree
+ImagesNG(1) ../images/lena.bmp inseree
+ImagesNG(2) ../images/boat.bmp inseree
+ImagesNG(3) ../images/house.bmp inseree
+ImagesRGB(4) ../images/lena.bmp(Dilatation(2) de 7) inseree
+ImagesRGB(5) ../images/mandrill.bmp inseree
+ImagesRGB(6) ../images/bulles.bmp inseree
+ImagesRGB(7) ../images/joconde.bmp inseree
+ImagesRGB(8) ../images/lena.bmp inseree
+Sauvegarde.dat charge
+Image 8 seuillee de 80
+ImagesB(9) ../images/lena.bmp(Seuillage(80)) inseree
+Images exportees vers Sauvegarde.dat

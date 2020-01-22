@@ -52,7 +52,9 @@ void Couleur::Save(ofstream &fichier) const
 		return;
 	}
 	
-	fichier.write((char*)this, sizeof(Couleur));
+	fichier.write((char*)&R, sizeof(int));
+	fichier.write((char*)&G, sizeof(int));
+	fichier.write((char*)&B, sizeof(int));
 }
 
 void Couleur::Load(ifstream &fichier)
@@ -63,7 +65,9 @@ void Couleur::Load(ifstream &fichier)
 		return;
 	}
 	
-	fichier.read((char*)this, sizeof(Couleur));
+	fichier.read((char*)&R, sizeof(int));
+	fichier.read((char*)&G, sizeof(int));
+	fichier.read((char*)&B, sizeof(int));
 }
 
 Couleur& Couleur::operator=(const Couleur& cpy)
@@ -73,22 +77,25 @@ Couleur& Couleur::operator=(const Couleur& cpy)
 	setBleu(cpy.getBleu());
 }
 
-void Couleur::setRouge(const int r) throw (RGBException)
+void Couleur::setRouge(const int r)
 {
-	if(r > 255 || r < 0) throw RGBException("Valeur du rouge invalide !", r);
-	else R = r;
+	if(r < 0) R = 0;
+	if(r > 255) R = 255;
+	if(r >= 0 && r <= 255) R = r;
 }
 
-void Couleur::setVert(const int g) throw (RGBException)
+void Couleur::setVert(const int g)
 {
-	if(g > 255 || g < 0) throw RGBException("Valeur du vert invalide !", g);
-	else G = g;
+	if(g < 0) G = 0;
+	if(g > 255) G = 255;
+	if(g >= 0 && g <= 255) G = g;
 }
 
-void Couleur::setBleu(const int b) throw (RGBException)
+void Couleur::setBleu(const int b)
 {
-	if(b > 255 || b < 0) throw RGBException("Valeur du bleu invalide !", b);
-	else B = b;
+	if(b < 0) B = 0;
+	if(b > 255) B = 255;
+	if(b >= 0 && b <= 255) B = b;
 }
 
 int Couleur::getRouge() const

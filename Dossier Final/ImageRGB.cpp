@@ -13,7 +13,7 @@ ImageRGB::ImageRGB()
 {
 	nom = NULL;
 	matrice = NULL;
-	setDimension(dim);
+	setDimension(Dimension::VGA);
 	setNom("default");
 	setId(1);
 }
@@ -22,7 +22,7 @@ ImageRGB::ImageRGB(int val, const char* name)
 {
 	nom = NULL;
 	matrice = NULL;
-	setDimension(dim);
+	setDimension(Dimension::VGA);
 	setNom(name);
 	setId(val);
 }
@@ -53,8 +53,8 @@ ImageRGB::ImageRGB(const char* path)
 {
 	nom = NULL;
 	matrice = NULL;
-	setDimension(dim);
-	setNom("default");
+	setDimension(Dimension::VGA);
+	setNom(path);
 	setId(1);
 
 	importFromBMP(path);
@@ -103,8 +103,55 @@ void ImageRGB::Load(ifstream &fichier)
 		for(int y = 0; y < dim.getHauteur(); y++)
 		{
 			fichier.read((char*)&val, sizeof(Couleur));
-			
 			matrice[x][y] = val;
+		}
+}
+
+ImageNG ImageRGB::getRouge() const
+{
+	ImageNG rouge(this->getId(), this->getNom(),this->dim);
+	
+	for(int x = 0; x < dim.getLargeur(); x++)
+		for(int y = 0; y < dim.getHauteur(); y++)
+			rouge.setPixel(x, y, matrice[x][y].getRouge());
+	
+	return rouge;
+}
+
+ImageNG ImageRGB::getVert() const
+{
+	ImageNG vert(this->getId(), this->getNom(),this->dim);
+	
+	for(int x = 0; x < dim.getLargeur(); x++)
+		for(int y = 0; y < dim.getHauteur(); y++)
+			vert.setPixel(x, y, matrice[x][y].getVert());
+	
+	return vert;
+}
+
+ImageNG ImageRGB::getBleu() const
+{
+	ImageNG bleu(this->getId(), this->getNom(),this->dim);
+	
+	for(int x = 0; x < dim.getLargeur(); x++)
+		for(int y = 0; y < dim.getHauteur(); y++)
+			bleu.setPixel(x, y, matrice[x][y].getBleu());
+	
+	return bleu;
+}
+
+void ImageRGB::setRGB(const ImageNG& r, const ImageNG& g, const ImageNG& b)
+{
+	ImageNG tempR(r);
+	ImageNG tempG(g);
+	ImageNG tempB(b);
+	
+	for(int x = 0; x < dim.getLargeur(); x++)
+		for(int y = 0; y < dim.getHauteur(); y++)
+		{
+			matrice[x][y].setRouge(tempR.getPixel(x, y));
+			matrice[x][y].setVert(tempG.getPixel(x, y));
+			matrice[x][y].setBleu(tempB.getPixel(x, y));
 		}
 }
 
@@ -161,7 +208,7 @@ ImageRGB operator+(const PixelRGB& pix, const ImageRGB& image)
 
 ostream& operator<<(ostream& s, const ImageRGB& cpy)
 {
-	s << endl << "ID : " << cpy.getId() << endl << "Nom : " << cpy.getNom() << endl << cpy.dim.getLargeur() << "x" << cpy.dim.getHauteur() << endl;
+	s << "[]ImageRGB " << cpy.getNom() << " : " << "ID=" << cpy.getId() << " " << cpy.getLargeur() << "x" << cpy.getHauteur() << endl;
 	
 	return s;
 }
@@ -238,8 +285,8 @@ void ImageRGB::importFromBMP(const char* name)
 	Dimension d(temp.getWidth(),temp.getHeight());
 	setDimension(d);
 	
-	for(int x = 0; x < temp.getWidth(); x++)
-		for(int y = 0; y < temp.getHeight(); y++)
+	for(int x = 0; x < dim.getLargeur(); x++)
+		for(int y = 0; y < dim.getHauteur(); y++)
 		{
 			temp.getPixel(x, y, &r, &g, &b);
 			color.setRouge(r);
@@ -262,7 +309,7 @@ void ImageRGB::exportToBMP(const char* name)
 
 void ImageRGB::Affiche() const
 {
-	cout << "[]ImageRGB" << getNom() << " : " << "ID=" << getId() << dim.getLargeur() << "x" << dim.getHauteur() << endl;
+	cout << "[]ImageRGB " << getNom() << " : " << "ID=" << getId() << " " << dim.getLargeur() << "x" << dim.getHauteur() << endl;
 }
 
 Couleur** ImageRGB::AllocMatrix(int Largeur, int Hauteur)
@@ -277,10 +324,10 @@ Couleur** ImageRGB::AllocMatrix(int Largeur, int Hauteur)
 
 void ImageRGB::FreeMatrix()
 {
-	for(int x = 0; x < dim.getLargeur(); x++)
+	for(int x = 0; x < dim.getLargeur() && matrice[x] != NULL; x++)
 		delete[] matrice[x];
 		
-	delete[] matrice;
+	delete matrice;
 }
 
 void ImageRGB::Dessine()

@@ -15,6 +15,13 @@ class Traitements
 		static ImageNG Erosion(const ImageNG& imageIn, int taille);
 		static ImageNG Dilatation(const ImageNG& imageIn, int taille);
 		static ImageNG Negatif(const ImageNG& imageIn);
+		
+		static ImageB Seuillage(const ImageRGB& imageIn, int seuil);
+		static ImageRGB FiltreMoyenneur(const ImageRGB& imageIn, int taille, Pixel p1=Pixel(), Pixel p2=Pixel());
+		static ImageRGB FiltreMedian(const ImageRGB& imageIn, int taille);
+		static ImageRGB Erosion(const ImageRGB& imageIn, int taille);
+		static ImageRGB Dilatation(const ImageRGB& imageIn, int taille);
+		static ImageRGB Negatif(const ImageRGB& imageIn);
 };
 
 #endif

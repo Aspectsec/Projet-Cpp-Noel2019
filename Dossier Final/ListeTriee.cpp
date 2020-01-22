@@ -5,56 +5,111 @@ using namespace std;
 template <class T>
 void ListeTriee<T>::insere(const T& val)
 {
-	if(!this->pTete)
-	{
-		this->pTete = new Cellule<T>;
-		this->pTete->valeur = val;
-		this->pTete->suiv = NULL;
-		
-		return;
-	}
-	
 	Cellule<T> *newVal = new Cellule<T>;
 	newVal->valeur = val;
 	newVal->suiv = NULL;
 	
-	Cellule<T> *pTemp = this->pTete;
-	Cellule<T> *pPrec = NULL;
-	
-	if(!this->pTete->suiv)
+	if(!this->pTete)
 	{
-		if(pTemp->valeur < val)
-		{
-			pTemp->suiv = newVal;
-		}
-		else
-		{
-			this->pTete = newVal;
-			newVal->suiv = pTemp;
-		}
+		this->pTete = newVal;
 		
 		return;
 	}
 	
-	while(pTemp->suiv && ( val > pTemp->valeur ))
+	Cellule<T> *pCur = this->pTete;
+	Cellule<T> *pPrec = NULL;
+	
+	
+	int trouve = 0;
+	
+	while(trouve == 0 && pCur != NULL)
 	{
-		pPrec = pTemp;
-		pTemp = pTemp->suiv;
+		if(pCur->valeur > val)
+		{
+			if(pPrec == NULL)
+			{
+				newVal->suiv = pCur;
+				this->pTete = newVal;
+			}
+			else
+			{
+				pPrec->suiv = newVal;
+				newVal->suiv = pCur;
+			}
+			
+		trouve = 1;
+		
+		}
+		else
+		{
+			pPrec = pCur;
+			pCur = pCur->suiv;
+		}
 	}
 	
-	if(!pTemp->suiv && ( val > pTemp->valeur ))
+	if(trouve == 0)
 	{
-		pTemp->suiv = newVal;
+		pPrec->suiv = newVal;
+		newVal ->suiv = pCur;
 	}
-	else
-	{
-		if(pPrec)
-			pPrec->suiv = newVal;
-		else
-			this->pTete = newVal;
-		
-		newVal->suiv = pTemp;
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	if(!this->pTete->suiv)
+//	{
+//		cout << "pTete->suiv" << endl;
+//		if(pTemp->valeur < val)
+//		{
+//			pTemp->suiv = newVal;
+//		}
+//		else
+//		{
+//			this->pTete = newVal;
+//			newVal->suiv = pTemp;
+//		}
+//		cout << "fin pTete" << endl;
+//		return;
+//	}
+//	
+//	if(this->pTete->valeur > newVal->valeur)
+//	{
+//		cout << "<" << endl;
+//		newVal->suiv = this->pTete;
+//		this->pTete = newVal;
+//		cout << "Fin <" << endl;
+//		return;
+//	}
+//	
+//	cout << "Avant while" << endl;
+//	while(pTemp->suiv && ( val > pTemp->valeur ))
+//	{
+//		pPrec = pTemp;
+//		pTemp = pTemp->suiv;
+//	}
+//	cout << "Apres while" << endl;
+//	
+//	if(/*!pTemp->suiv && */( val > pTemp->valeur ))
+//	{
+//		pTemp->suiv = newVal;
+//	}
+//	else
+//	{
+//		if(pPrec)
+//			pPrec->suiv = newVal;
+//		else
+//			this->pTete = newVal;
+//		
+//		newVal->suiv = pTemp;
+//	}
+//	cout << "Fin insere" << endl;
 }
 
 template class ListeTriee<int>;

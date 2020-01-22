@@ -5,7 +5,6 @@
 #include <fstream> 
 
 #include "Image.h"
-#include "Dimension.h"
 #include "PixelNG.h"
 #include "RGBException.h"
 #include "XYException.h"
@@ -18,7 +17,14 @@ class ImageNG : public Image
 		
 		int compLum(ImageNG i);
 		int compPixel(ImageNG i, const int cmp);
-
+		
+		int** AllocMatrix(int Largeur, int Hauteur);
+		void FreeMatrix();
+		
+		void addToPix(const int num);
+		void removeFromPix(const int num);
+		void removeFromPixImageNG(ImageNG i2);
+		
 	public:
 		ImageNG();
 		ImageNG(const char* path);
@@ -33,22 +39,18 @@ class ImageNG : public Image
 		void Save(ofstream &fichier) const;
 		void Load(ifstream &fichier);
 		
-		
 		static void setComparaison(int mode);
 		static int getComparaison();
 
-		void setPixel(int x, int y, int val) throw (RGBException, XYException);
+		void setPixel(int x, int y, int val) throw (XYException);
 		int getPixel(int x, int y) throw (XYException);
 
 		void setDimension(const Dimension& d);
-		void setBackground(int val) throw (RGBException);
+		void setBackground(int val);
 
 		void Affiche() const;
 		void Dessine();
 		void Dessine(const int x, const int y);
-
-		int** AllocMatrix(int Largeur, int Hauteur);
-		void FreeMatrix();
 		
 		void importFromBMP(const char* name);
 		void exportToBMP(const char* name);
@@ -57,10 +59,6 @@ class ImageNG : public Image
 		int getMaximum() const;
 		int getMinimum() const;
 		float getContraste() const;
-		
-		void addToPix(const int num);
-		void removeFromPix(const int num);
-		void removeFromPixImageNG(ImageNG i2);
 		
 		ImageNG& operator=(const ImageNG& cpy);
 		

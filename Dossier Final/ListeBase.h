@@ -29,7 +29,7 @@ template<class T> class ListeBase
 		
 		void reset();
 		void Affiche() const;
-		virtual void insere(const T & val) = 0;
+		virtual void insere(const T& val) = 0;
 		
 		ListeBase<T>& operator=(const ListeBase<T>& liste2);
 };

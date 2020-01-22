@@ -17,3 +17,8 @@ void BaseException::setErreur(const char* erreur)
 	msg = new char[strlen(erreur) + 1];
 	if(erreur) strcpy(msg, erreur);
 }
+
+const char* BaseException::getErreur()
+{
+	return msg;
+}
