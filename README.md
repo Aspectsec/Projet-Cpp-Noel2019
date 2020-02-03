@@ -1,2 +1,1 @@
-# school
-C++ Projet Noel 2019
+# Projet C++ Noel 2019
